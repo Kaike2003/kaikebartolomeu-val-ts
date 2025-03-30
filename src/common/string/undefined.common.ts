@@ -1,10 +1,11 @@
+import { ValidationError } from "../../validation/validation";
 import { registerValidation } from "../validationMetadata";
 
-export function IsUndefined() {
+export function IsUndefined(message?: string) {
   return (target: any, key: string) => {
     registerValidation(target, key, (value: any) => {
       if (value !== undefined) {
-        throw new Error(`Property "${key}" must be undefined.`);
+        throw new ValidationError(message || `Property "${key}" must be undefined.`);
       }
     });
   };

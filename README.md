@@ -1,180 +1,135 @@
-# TS-Validator - Official Documentation (English)
+# TS-Validator Documentation
 
-[🇬🇧 English Version](README.md) | [🇵🇹 Portuguese Version](README.pt.md)
+> 📖 Available languages: [English](README.md) | [Português](README.pt.md)
 
-TS-Validator is a powerful and flexible TypeScript data validation library, allowing the definition of validation rules using decorators. It supports validation of strings, numbers, arrays, objects, enums, dates, and much more.
+## Introduction
 
-Created by **Kaike Bartolomeu**.
+**TS-Validator** is a lightweight TypeScript library that enables automatic validation of class properties. By using decorators, it ensures that assigned values follow predefined formats, such as emails, IBANs, passports, identity documents, and phone numbers. Additionally, the `validate` function checks if all properties of an instance are valid before use.
+
+All decorators now support custom error messages, allowing for more user-friendly validation feedback.
+
+**Author:** Kaike Bartolomeu
 
 ## Installation
 
-To install the library, use:
-
 ```sh
 npm install ts-validator
-pnpm add ts-validator
 yarn add ts-validator
+pnpm add ts-validator
 ```
 
-## Basic Usage
+## Usage
 
-Use validation decorators on your class properties and call the `validate()` function to check for errors.
+### Basic Example
 
-```ts
-import { validate, MinLength, MaxLength, IsEmail, IsAlphaNumeric, IsPhone, IsEnum } from "ts-validator";
+```typescript
+import { IsPhone, IsString, validate } from "ts-validator";
 
-enum UserType {
-  ADMIN = "admin",
-  CLIENT = "client",
-  GUEST = "guest",
-}
-
-class User {
+class Person {
+  @IsString()
   @IsEmail("Gmail")
   email!: string;
 
-  @MinLength(8)
-  @MaxLength(20)
-  password!: string;
-
-  @IsAlphaNumeric()
-  username!: string;
-
-  @IsPhone("+55")
+  @IsString()
+  @IsPhone("+244")
   phone!: string;
+}
 
-  @IsEnum(UserType)
-  type!: UserType;
+const user = new Person();
+user.email = "kaike@gmail.com";
+user.phone = "+244923156789";
+
+try {
+  const validatedUser = validate(user);
+  console.log("Validated data:", validatedUser);
+} catch (error: any) {
+  console.error("Validation error:", error.message);
+}
+```
+
+### Advanced Example with Custom Error Messages
+
+```typescript
+import { IsPhone, IsString, validate } from "ts-validator";
+
+class User {
+  @IsString("The phone number must be a string")
+  @IsPhone("+244", "Must be a valid phone number for Angola")
+  phone!: string;
 }
 
 const user = new User();
-user.email = "example@gmail.com";
-user.password = "password123";
-user.username = "user2024";
-user.phone = "+559999999999";
-user.type = UserType.CLIENT;
-
-console.log(validate(user));
-```
-
----
-
-## Example: Document and Personal Contact Validation
-
-```ts
-import { IsEmail, IsIban, IsIdentityCard, IsPassport, IsPhone, validate, IsEnum } from "ts-validator";
-
-enum Gender {
-  MALE = "male",
-  FEMALE = "female",
-  OTHER = "other",
-}
-
-class Person {
-  @IsEmail("Gmail")
-  email!: string;
-
-  @IsIban("AO")
-  iban!: string;
-
-  @IsPassport("AO")
-  passport!: string;
-
-  @IsIdentityCard("AO")
-  idCard!: string;
-
-  @IsPhone("+244")
-  phone!: string;
-
-  @IsEnum(Gender)
-  gender!: Gender;
-}
-
-const person = new Person();
-person.email = "kaike@gmail.com";
-person.iban = "AO06123456789012345678901";
-person.passport = "A1234567";
-person.idCard = "123456789LA001";
-person.phone = "+244923456789";
-person.gender = Gender.MALE;
+user.phone = "+244943162154";
 
 try {
-  console.log(validate(person));
-} catch (error) {
-  console.log(error);
+  const validatedUser = validate(user);
+  console.log("Validated data:", validatedUser);
+} catch (error: any) {
+  console.error("Validation error:", error.message);
 }
 ```
-
----
 
 ## Available Decorators
 
-### **String Validation**
+### String
 
-- `@IsEmail(provider?: string)` - Validates an email.
-- `@IsIban(countryCode: string)` - Validates an IBAN for a specific country.
-- `@IsIdentityCard(countryCode: string)` - Validates an identity card number.
-- `@IsPassport(countryCode: string)` - Validates a passport number.
-- `@IsPhone(countryCode: string)` - Validates a phone number.
-- `@MinLength(n: number)` - Sets a minimum length.
-- `@MaxLength(n: number)` - Sets a maximum length.
-- `@IsAlpha()` - Allows only letters.
-- `@IsAlphaNumeric()` - Allows only letters and numbers.
-- `@IsLowercase()` - Allows only lowercase letters.
-- `@IsUppercase()` - Allows only uppercase letters.
-- `@Matches(regex: RegExp)` - Validates against a regex pattern.
+- `@IsString(errorMessage?: string)`
+- `@IsAlpha(errorMessage?: string)`
+- `@IsAlphaNumeric(errorMessage?: string)`
+- `@IsLowercase(errorMessage?: string)`
+- `@IsUppercase(errorMessage?: string)`
+- `@IsEmpty(errorMessage?: string)`
+- `@IsUrl(errorMessage?: string)`
+- `@IsUUID(errorMessage?: string)`
+- `@IsMaxLength(value: number, errorMessage?: string)`
+- `@IsMinLength(value: number, errorMessage?: string)`
+- `@IsNull(errorMessage?: string)`
+- `@IsUndefined(errorMessage?: string)`
 
-### **Number Validation**
+### Number
 
-- `@IsInteger()` - Validates an integer.
-- `@IsPositive()` - Allows only positive numbers.
-- `@IsNegative()` - Allows only negative numbers.
-- `@Min(n: number)` - Sets a minimum value.
-- `@Max(n: number)` - Sets a maximum value.
-- `@IsNumber()` - Ensures it is a number.
-- `@IsEnum(enumType: any)` - Validates an enum.
+- `@IsNumber(errorMessage?: string)`
+- `@IsInteger(errorMessage?: string)`
+- `@IsPositive(errorMessage?: string)`
+- `@IsNegative(errorMessage?: string)`
+- `@IsMax(value: number, errorMessage?: string)`
+- `@IsMin(value: number, errorMessage?: string)`
+- `@IsEnum(enumObject: object, errorMessage?: string)`
 
-### **Array Validation**
+### General
 
-- `@IsArray()` - Ensures it is an array.
-- `@ArrayMinSize(n: number)` - Sets a minimum size.
-- `@ArrayMaxSize(n: number)` - Sets a maximum size.
-- `@ArrayNotEmpty()` - Ensures it is not empty.
+- `@IsBoolean(errorMessage?: string)`
+- `@IsDate(errorMessage?: string)`
+- `@IsMaxDate(date: Date, errorMessage?: string)`
+- `@IsMinDate(date: Date, errorMessage?: string)`
+- `@IsArray(errorMessage?: string)`
+- `@IsObject(errorMessage?: string)`
+- `@IsFunction(errorMessage?: string)`
+- `@IsProperty(key: string, errorMessage?: string)`
+- `@IsJSON(errorMessage?: string)`
 
-### **Object Validation**
+### Custom
 
-- `@IsObject()` - Validates if it is an object.
-- `@IsJson()` - Validates JSON.
-- `@HasProperty(prop: string)` - Checks for the existence of a property.
+- `@IsEmail(provider: EmailProvider, errorMessage?: string)`
+- `@IsPhone(countryCode: PhoneCountryCode, errorMessage?: string)`
+- `@IsIban(errorMessage?: string)`
+- `@IsPassport(errorMessage?: string)`
+- `@IsIdentityCard(errorMessage?: string)`
 
-### **Date Validation**
+## Supported Types
 
-- `@IsDate()` - Ensures it is a date.
-- `@MinDate(date: Date)` - Sets a minimum date.
-- `@MaxDate(date: Date)` - Sets a maximum date.
+### Countries (`Country`)
 
-### **Boolean Validation**
+`"AF" | "AO" | "AR" | "AU" | "BR" | "CA" | "CN" | "DE" | "ES" | "FR" | "GB" | "IN" | "IT" | "JP" | "MX" | "PT" | "RU" | "US" | "ZA"`
 
-- `@IsBoolean()` - Ensures it is a boolean.
+### Email Providers (`EmailProvider`)
 
-### **Custom Validation**
+`"Generic Email" | "Gmail" | "Hotmail/Outlook" | "Yahoo" | "ProtonMail" | "Yandex" | "iCloud" | "Zoho Mail" | "GMX" | "Mail.ru" | "Japan (docomo)" | "China (163.com)" | "Brazil (UOL)" | "South Korea (Naver)" | "Germany (Web.de)" | "France (Orange)" | "United Kingdom (BT Internet)"`
 
-- `@CustomValidate(validatorFn: (value: any) => boolean | string)` - Allows custom validation logic.
+### Phone Country Codes (`PhoneCountryCode`)
 
----
+`"+93" | "+244" | "+54" | "+61" | "+55" | "+1" | "+86" | "+49" | "+34" | "+33" | "+44" | "+91" | "+39" | "+81" | "+52" | "+351" | "+7" | "+27"`
 
-## Error Handling
+## Conclusion
 
-```ts
-try {
-  validate(user);
-} catch (error) {
-  console.error("Validation failed:", error);
-}
-```
-
----
-
-## Portuguese Version
-
-[🇵🇹 Access the Portuguese documentation](README.md)
+**TS-Validator** simplifies data validation in TypeScript classes, ensuring that all properties have correct values before use. This prevents runtime errors and improves system reliability.

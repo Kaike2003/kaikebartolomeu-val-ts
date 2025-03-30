@@ -1,10 +1,11 @@
+import { ValidationError } from "../../validation/validation";
 import { registerValidation } from "../validationMetadata";
 
-export function IsAlpha() {
+export function IsAlpha(message?: string) {
   return (target: any, key: string) => {
     registerValidation(target, key, (value: any) => {
-      if (!/^[A-Za-z]+$/.test(value)) {
-        throw new Error(`Property "${key}" must contain only letters.`);
+      if (typeof value !== "string" || !/^[A-Za-z]+$/.test(value)) {
+        throw new ValidationError(message || `Property "${key}" must contain only letters.`);
       }
     });
   };

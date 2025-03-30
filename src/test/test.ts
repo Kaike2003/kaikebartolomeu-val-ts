@@ -1,17 +1,13 @@
-import { IsEmail, IsString, validate } from "..";
+import { IsPhone, IsString, validate } from "..";
 
-class Data {
-  @IsString()
-  @IsEmail("iCloud")
-  email!: string;
+class Usuario {
+  @IsString("O número de telefone deve ser uma string")
+  @IsPhone("+244", "Deve ser um número de telefone válido para Angola")
+  telefone!: string;
 }
 
-const data = new Data();
+const usuario = new Usuario();
+usuario.telefone = "+244943162154";
 
-data.email = "kaike@icloud.com";
-
-try {
-  console.log(validate(data));
-} catch (error) {
-  console.log(error);
-}
+const data = validate(usuario);
+console.log(data);

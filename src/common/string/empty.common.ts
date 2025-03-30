@@ -1,10 +1,11 @@
+import { ValidationError } from "../../validation/validation";
 import { registerValidation } from "../validationMetadata";
 
-export function IsEmpty() {
+export function IsEmpty(message?: string) {
   return (target: any, key: string) => {
     registerValidation(target, key, (value: any) => {
-      if (value !== "" && value !== null && value !== undefined && value !== 0) {
-        throw new Error(`Property "${key}" must be empty.`);
+      if (value !== "" && value !== null && value !== undefined) {
+        throw new ValidationError(message || `Property "${key}" must be empty.`);
       }
     });
   };
