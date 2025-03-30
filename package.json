@@ -1,0 +1,38 @@
+{
+  "name": "ts-validator",
+  "version": "1.0.0",
+  "description": "A powerful TypeScript validation library for emails, IBANs, identity cards, passports, and phone numbers.",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "dev": "tsx watch ./src/test/test.ts",
+    "ts-types": "tsc",
+    "build": "rimraf lib && pnpm ts-types && node ./esbuild.js"
+  },
+  "keywords": [
+    "validation",
+    "typescript",
+    "email",
+    "iban",
+    "identity",
+    "passport",
+    "phone",
+    "data-validation"
+  ],
+  "author": "Kaike Gaspar Bartolomeu",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Kaike2003/ts-validator"
+  },
+  "homepage": "https://github.com/Kaike2003/ts-validator",
+  "license": "ISC",
+  "packageManager": "pnpm@10.5.1",
+  "devDependencies": {
+    "esbuild": "^0.25.0",
+    "rimraf": "^6.0.1",
+    "typescript": "^5.8.2"
+  },
+  "dependencies": {
+    "tsx": "^4.19.3"
+  }
+}
