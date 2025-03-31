@@ -18,6 +18,19 @@ yarn add @kaikebartolomeu/val-ts
 pnpm add @kaikebartolomeu/val-ts
 ```
 
+## Configuração Necessária
+
+Para utilizar os decoradores, é necessário ativar os **experimental decorators** no TypeScript. Adicione as seguintes opções ao seu `tsconfig.json`:
+
+```json
+{
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
+  }
+}
+```
+
 ## Uso
 
 ### Exemplo Básico
@@ -172,20 +185,6 @@ app.listen(port, () => console.log(`Server running on port: ${port}`));
 - `@IsIban(mensagemDeErro?: string)`
 - `@IsPassport(mensagemDeErro?: string)`
 - `@IsIdentityCard(mensagemDeErro?: string)`
-
-## Tipos Suportados
-
-### Países (Country)
-
-"AF" | "AO" | "AR" | "AU" | "BR" | "CA" | "CN" | "DE" | "ES" | "FR" | "GB" | "IN" | "IT" | "JP" | "MX" | "PT" | "RU" | "US" | "ZA"
-
-### Provedores de E-mail (EmailProvider)
-
-"Generic Email" | "Gmail" | "Hotmail/Outlook" | "Yahoo" | "ProtonMail" | "Yandex" | "iCloud" | "Zoho Mail" | "GMX" | "Mail.ru" | "Japan (docomo)" | "China (163.com)" | "Brazil (UOL)" | "South Korea (Naver)" | "Germany (Web.de)" | "France (Orange)" | "United Kingdom (BT Internet)"
-
-### Códigos de Telefone (PhoneCountryCode)
-
-"+93" | "+244" | "+54" | "+61" | "+55" | "+1" | "+86" | "+49" | "+34" | "+33" | "+44" | "+91" | "+39" | "+81" | "+52" | "+351" | "+7" | "+27"
 
 ## Conclusão
 

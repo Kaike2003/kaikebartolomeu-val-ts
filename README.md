@@ -1,4 +1,4 @@
-# @kaikebartolomeu/val-ts Documentation
+# Documentation for @kaikebartolomeu/val-ts
 
 > 📚 Available languages: [English](README.md) | [Português](README.pt.md)
 
@@ -16,6 +16,19 @@ All decorators now support custom error messages, allowing for more user-friendl
 npm install @kaikebartolomeu/val-ts
 yarn add @kaikebartolomeu/val-ts
 pnpm add @kaikebartolomeu/val-ts
+```
+
+## Required Configuration
+
+To use decorators, you need to enable **experimental decorators** in TypeScript. Add the following options to your `tsconfig.json`:
+
+```json
+{
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
+  }
+}
 ```
 
 ## Usage
@@ -60,7 +73,7 @@ class User {
 }
 
 const user = new User();
-user.phone = "+244943162154";
+user.phone = "+244923156789";
 
 await validate(user)
   .then((validatedUser) => {
@@ -172,20 +185,6 @@ app.listen(port, () => console.log(`Server running on port: ${port}`));
 - `@IsIban(errorMessage?: string)`
 - `@IsPassport(errorMessage?: string)`
 - `@IsIdentityCard(errorMessage?: string)`
-
-## Supported Types
-
-### Countries (Country)
-
-"AF" | "AO" | "AR" | "AU" | "BR" | "CA" | "CN" | "DE" | "ES" | "FR" | "GB" | "IN" | "IT" | "JP" | "MX" | "PT" | "RU" | "US" | "ZA"
-
-### Email Providers (EmailProvider)
-
-"Generic Email" | "Gmail" | "Hotmail/Outlook" | "Yahoo" | "ProtonMail" | "Yandex" | "iCloud" | "Zoho Mail" | "GMX" | "Mail.ru" | "Japan (docomo)" | "China (163.com)" | "Brazil (UOL)" | "South Korea (Naver)" | "Germany (Web.de)" | "France (Orange)" | "United Kingdom (BT Internet)"
-
-### Phone Country Codes (PhoneCountryCode)
-
-"+93" | "+244" | "+54" | "+61" | "+55" | "+1" | "+86" | "+49" | "+34" | "+33" | "+44" | "+91" | "+39" | "+81" | "+52" | "+351" | "+7" | "+27"
 
 ## Conclusion
 
