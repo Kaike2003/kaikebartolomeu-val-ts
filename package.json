@@ -1,6 +1,6 @@
 {
   "name": "@kaikebartolomeu/val-ts",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A powerful TypeScript validation library for emails, IBANs, identity cards, passports, and phone numbers.",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
