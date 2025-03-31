@@ -5,7 +5,6 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
-    "dev": "tsx watch ./src/test/test.ts",
     "ts-types": "tsc",
     "build": "rimraf lib && pnpm ts-types && node ./esbuild.js"
   },
