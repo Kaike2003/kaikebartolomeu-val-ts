@@ -1,5 +1,5 @@
 {
-  "name": "ts-validator",
+  "name": "@kaikebartolomeu/val-ts",
   "version": "1.0.0",
   "description": "A powerful TypeScript validation library for emails, IBANs, identity cards, passports, and phone numbers.",
   "main": "lib/index.js",
@@ -9,6 +9,7 @@
     "build": "rimraf lib && pnpm ts-types && node ./esbuild.js"
   },
   "keywords": [
+    "tsv",
     "ts",
     "validate",
     "validation",
@@ -23,9 +24,9 @@
   "author": "Kaike Gaspar Bartolomeu",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Kaike2003/ts-validator"
+    "url": "https://github.com/Kaike2003/kaikebartolomeu-val-ts"
   },
-  "homepage": "https://github.com/Kaike2003/ts-validator",
+  "homepage": "https://github.com/Kaike2003/kaikebartolomeu-val-ts",
   "license": "ISC",
   "packageManager": "pnpm@10.5.1",
   "devDependencies": {

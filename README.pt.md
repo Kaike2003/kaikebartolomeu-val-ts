@@ -1,10 +1,10 @@
-# Documentação do TS-Validator
+# Documentação do @kaikebartolomeu/val-ts
 
 > 📚 Idiomas disponíveis: [English](README.md) | [Português](README.pt.md)
 
 ## Introdução
 
-**TS-Validator** é uma biblioteca leve em TypeScript que permite a validação automática de propriedades de classes. Utilizando decoradores, garante que os valores atribuídos sigam formatos predefinidos, como e-mails, IBANs, passaportes, documentos de identidade e números de telefone. Além disso, a função `validate` verifica se todas as propriedades de uma instância são válidas antes do uso.
+**@kaikebartolomeu/val-ts** é uma biblioteca leve em TypeScript que permite a validação automática de propriedades de classes. Utilizando decoradores, garante que os valores atribuídos sigam formatos predefinidos, como e-mails, IBANs, passaportes, documentos de identidade e números de telefone. Além disso, a função `validate` verifica se todas as propriedades de uma instância são válidas antes do uso.
 
 Todos os decoradores agora suportam mensagens de erro personalizadas, permitindo um feedback de validação mais amigável.
 
@@ -13,9 +13,9 @@ Todos os decoradores agora suportam mensagens de erro personalizadas, permitindo
 ## Instalação
 
 ```sh
-npm install ts-validator
-yarn add ts-validator
-pnpm add ts-validator
+npm install @kaikebartolomeu/val-ts
+yarn add @kaikebartolomeu/val-ts
+pnpm add @kaikebartolomeu/val-ts
 ```
 
 ## Uso
@@ -23,7 +23,7 @@ pnpm add ts-validator
 ### Exemplo Básico
 
 ```typescript
-import { IsPhone, IsString, validate } from "ts-validator";
+import { IsPhone, IsString, validate } from "@kaikebartolomeu/val-ts";
 
 class Pessoa {
   @IsString()
@@ -51,7 +51,7 @@ await validate(usuario)
 ### Exemplo Avançado com Mensagens de Erro Personalizadas
 
 ```typescript
-import { IsPhone, IsString, validate } from "ts-validator";
+import { IsPhone, IsString, validate } from "@kaikebartolomeu/val-ts";
 
 class Usuario {
   @IsString("O número de telefone deve ser uma string")
@@ -75,7 +75,7 @@ await validate(usuario)
 
 ```typescript
 import express, { Request, Response } from "express";
-import { validate } from "ts-validator";
+import { validate } from "@kaikebartolomeu/val-ts";
 
 export class User {
   @IsString("O email deve ser uma string")
@@ -189,4 +189,4 @@ app.listen(port, () => console.log(`Server running on port: ${port}`));
 
 ## Conclusão
 
-**TS-Validator** simplifica a validação de dados em classes TypeScript, garantindo que todas as propriedades tenham valores corretos antes do uso. Isso previne erros em tempo de execução e melhora a confiabilidade do sistema.
+**@kaikebartolomeu/val-ts** simplifica a validação de dados em classes TypeScript, garantindo que todas as propriedades tenham valores corretos antes do uso. Isso previne erros em tempo de execução e melhora a confiabilidade do sistema.
